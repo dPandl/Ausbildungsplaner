@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ausbildungsplaner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class', // 'media' or 'class'
+        theme: {
+          extend: {
+            boxShadow: {
+              'glow-slate': '0 0 12px 2px theme(colors.slate.400)',
+              'glow-red': '0 0 12px 2px theme(colors.red.400)',
+              'glow-orange': '0 0 12px 2px theme(colors.orange.400)',
+              'glow-amber': '0 0 12px 2px theme(colors.amber.400)',
+              'glow-lime': '0 0 12px 2px theme(colors.lime.400)',
+              'glow-green': '0 0 12px 2px theme(colors.green.400)',
+              'glow-cyan': '0 0 12px 2px theme(colors.cyan.400)',
+              'glow-blue': '0 0 12px 2px theme(colors.blue.400)',
+              'glow-violet': '0 0 12px 2px theme(colors.violet.400)',
+              'glow-pink': '0 0 12px 2px theme(colors.pink.400)',
+            },
+            // Keyframes are now in the <style> tag below for more control over dialog animations
+          }
+        }
+      }
+    </script>
+    <style>
+      @keyframes modal-in {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes modal-out {
+        from { opacity: 1; transform: scale(1); }
+        to { opacity: 0; transform: scale(0.95); }
+      }
+      @keyframes backdrop-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes backdrop-out {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(1rem);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Base styles for the backdrop */
+      dialog::backdrop {
+        backdrop-filter: blur(4px); /* equivalent to backdrop-blur-sm */
+        background-color: rgb(15 23 42 / 0.2); /* bg-slate-900/20 */
+        opacity: 0; /* Default to invisible to prevent flickering */
+      }
+      .dark dialog::backdrop {
+        background-color: rgb(0 0 0 / 0.6); /* bg-black/60 */
+      }
+      
+      /* The dialog[open]::backdrop rule was removed as it caused flickering. */
+      /* We now rely on 'animation-fill-mode: forwards' to hold the final state. */
+
+      /* Animate opening. 'forwards' holds the final state. */
+      dialog[data-state='opening'] {
+        animation: modal-in 0.2s ease-out forwards;
+      }
+      dialog[data-state='opening']::backdrop {
+        animation: backdrop-in 0.2s ease-out forwards;
+      }
+
+      /* Animate closing. 'forwards' holds the final state */
+      /* until the dialog is programmatically closed in JS. */
+      dialog[data-state='closing'] {
+        animation: modal-out 0.2s ease-in forwards;
+      }
+      dialog[data-state='closing']::backdrop {
+        animation: backdrop-out 0.2s ease-in forwards;
+      }
+    </style>
+
+<link rel="stylesheet" href="/index.css">
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom": "https://esm.sh/react-dom@^19.1.1"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/index-CP9sVM8-.js"></script>
+</head>
+  <body class="bg-slate-100 dark:bg-slate-900">
+    <div id="root"></div>
+</body>
+</html>
